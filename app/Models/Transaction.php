@@ -22,10 +22,10 @@ class Transaction extends Model
         return $this->belongsTo(User::class);
     }
 
-//    protected function casts(): array
-//    {
-//        return [
-//            'date' => 'date:Y-m-d',
-//        ];
-//    }
+    protected function casts(): array
+    {
+        return [
+            'date' => 'date:d m Y',
+        ];
+    }
 }

@@ -36,6 +36,21 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function deposits(): HasMany
+    {
+        return $this->transactions()->where('type', 'deposit');
+    }
+
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function withdraws(): HasMany
+    {
+        return $this->transactions()->where('type', 'withdraw');
+    }
+
     /**
      * Get the attributes that should be cast.
      *
@@ -47,10 +62,5 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-
-    public function transactions(): HasMany
-    {
-        return $this->hasMany(Transaction::class);
     }
 }

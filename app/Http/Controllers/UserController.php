@@ -5,19 +5,22 @@ namespace App\Http\Controllers;
 use App\Imports\UsersImport;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 use Maatwebsite\Excel\Facades\Excel;
 
 
 class UserController extends Controller
 {
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\View\View
-     */
     public function index()
     {
-        $users = User::get();
+        $users = User::all();
 
-        return view('users', compact('users'));
+        return Inertia::render('Home', [
+            'users' => $users,
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+        ]);
     }
 
     public function import(Request $request)
