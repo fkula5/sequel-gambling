@@ -1,6 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import {Head} from '@inertiajs/vue3';
+import {Head, Link} from '@inertiajs/vue3';
 
 defineProps({auth: Object})
 </script>
@@ -12,8 +12,7 @@ defineProps({auth: Object})
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
             <div class="flex gap-5">
-                <button>Wpłać</button>
-                <button>Wypłać</button>
+                <Link :href="route('transactions.create')">Wykonaj akcje</Link>
             </div>
         </template>
 
@@ -39,7 +38,7 @@ defineProps({auth: Object})
                                 Pieniądze wpłacone na konto.
                             </p>
                             <ul>
-                                <li v-for="deposit in auth.deposits" :key="deposit.id">
+                                <li v-for="deposit in auth.user.transactions.deposits" :key="deposit.id">
                                     {{ deposit.amount }} zł {{ deposit.date }}
                                 </li>
                             </ul>
@@ -56,8 +55,8 @@ defineProps({auth: Object})
                                 Pieniądze wpłacone na konto.
                             </p>
                             <ul>
-                                <li v-for="withdraw in auth.withdraws" :key="withdraw.id">
-                                    {{ withdraw.amount }} zł {{ withdraw.date }}
+                                <li v-for="withdrawal in auth.user.transactions.withdrawals" :key="withdrawal.id">
+                                    {{ withdrawal.amount }} zł {{ withdrawal.date }}
                                 </li>
                             </ul>
                         </header>

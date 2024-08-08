@@ -32,9 +32,18 @@ class HandleInertiaRequests extends Middleware
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => $request->user(),
-                'withdraws' => $request->user()->withdraws()->get(),
-                'deposits' => $request->user()->deposits()->get(),
+                'user' => $request->user() ? [
+                    'id' => $request->user()->id,
+                    'name' => $request->user()->name,
+                    'email' => $request->user()->email,
+                    'balance' => $request->user()->balance,
+                    'deposit' => $request->user()->deposit,
+                    'withdraw' => $request->user()->withdraw,
+                    'transactions' => [
+                        'deposits' => $request->user()->deposits,
+                        'withdrawals' => $request->user()->withdrawals,
+                    ],
+                ] : null
             ],
         ];
     }

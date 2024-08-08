@@ -2,15 +2,15 @@
 
 namespace App\Enums;
 
-enum TransactionType
+enum TransactionType: string
 {
-    case WITHDRAWN;
-    case DEPOSIT;
+    case WITHDRAWAL = 'withdrawal';
+    case DEPOSIT = 'deposit';
 
     public static function fromString(string $value): self
     {
-        return match ($value){
-            'withdraw' => self::WITHDRAWN,
+        return match ($value) {
+            'withdrawal' => self::WITHDRAWAL,
             'deposit' => self::DEPOSIT,
         };
     }

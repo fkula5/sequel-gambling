@@ -46,9 +46,9 @@ class User extends Authenticatable
         return $this->hasMany(Transaction::class);
     }
 
-    public function withdraws(): HasMany
+    public function withdrawals(): HasMany
     {
-        return $this->transactions()->where('type', 'withdraw');
+        return $this->transactions()->where('type', 'withdrawal');
     }
 
     /**
