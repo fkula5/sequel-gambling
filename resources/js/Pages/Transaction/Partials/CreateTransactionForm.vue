@@ -4,6 +4,7 @@ import NumberInput from "@/Components/NumberInput.vue";
 import {useForm} from "@inertiajs/vue3";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import InputError from "@/Components/InputError.vue";
+import SelectInput from "@/Components/SelectInput.vue";
 
 const form = useForm({
     amount: 0,
@@ -39,10 +40,10 @@ const createTransaction = () => {
             <div>
                 <InputLabel for="type" value="Typ"/>
 
-                <select v-model="form.type" class="mt-1 block w-full" name="type">
+                <SelectInput v-model="form.type" class="mt-1 block w-full" required>
                     <option value="withdrawal">Wypłata</option>
                     <option value="deposit">Wpłata</option>
-                </select>
+                </SelectInput>
 
                 <InputError :message="form.errors.type" class="mt-2"/>
             </div>
