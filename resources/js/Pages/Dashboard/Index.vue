@@ -1,8 +1,17 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import {Head, Link} from '@inertiajs/vue3';
+import {Head, Link, useForm} from '@inertiajs/vue3';
+import DangerButton from "@/Components/DangerButton.vue";
 
 defineProps({auth: Object})
+
+const form = useForm({});
+
+const deleteTransaction = (transactionId) => {
+    if (confirm("Czy jesteś pewny, że chcesz usunąć tranzakcje?")) {
+        form.delete(route('transactions.destroy', transactionId));
+    }
+}
 </script>
 
 <template>
@@ -40,8 +49,13 @@ defineProps({auth: Object})
                         </header>
 
                         <ul>
-                            <li v-for="deposit in auth.user.transactions.deposits" :key="deposit.id">
-                                {{ deposit.amount }} zł {{ deposit.date }}r.3
+                            <li v-for="deposit in auth.user.transactions.deposits" :key="deposit.id"
+                                class="flex justify-between my-1 items-center">
+                                {{ deposit.amount }} zł {{ deposit.date }}r.
+                                <DangerButton :class="{ 'opacity-25': form.processing }"
+                                              :disabled="form.processing" @click="deleteTransaction(deposit.id)">
+                                    Usuń tranzakcje
+                                </DangerButton>
                             </li>
                         </ul>
                     </section>
@@ -57,8 +71,13 @@ defineProps({auth: Object})
                             </p>
                         </header>
                         <ul>
-                            <li v-for="withdrawal in auth.user.transactions.withdrawals" :key="withdrawal.id">
+                            <li v-for="withdrawal in auth.user.transactions.withdrawals" :key="withdrawal.id"
+                                class="flex justify-between my-1 items-center">
                                 {{ withdrawal.amount }} zł {{ withdrawal.date }}r.
+                                <DangerButton :class="{ 'opacity-25': form.processing }"
+                                              :disabled="form.processing" @click="deleteTransaction(withdrawal.id)">
+                                    Usuń tranzakcje
+                                </DangerButton>
                             </li>
                         </ul>
                     </section>
