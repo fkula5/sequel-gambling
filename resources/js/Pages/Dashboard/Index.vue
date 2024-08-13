@@ -37,29 +37,30 @@ defineProps({auth: Object})
                             <p class="mt-1 text- text-gray-600">
                                 Pieniądze wpłacone na konto.
                             </p>
-                            <ul>
-                                <li v-for="deposit in auth.user.transactions.deposits" :key="deposit.id">
-                                    {{ deposit.amount }} zł {{ deposit.date }}
-                                </li>
-                            </ul>
                         </header>
+
+                        <ul>
+                            <li v-for="deposit in auth.user.transactions.deposits" :key="deposit.id">
+                                {{ deposit.amount }} zł {{ deposit.date }}r.3
+                            </li>
+                        </ul>
                     </section>
                 </div>
 
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                     <section>
                         <header>
-                            <h2 class="text-lg font-medium text-gray-900">Wpłaty</h2>
+                            <h2 class="text-lg font-medium text-gray-900">Wypłaty</h2>
 
                             <p class="mt-1 text-md text-gray-600">
-                                Pieniądze wpłacone na konto.
+                                Pieniądze wypłacone z konta.
                             </p>
-                            <ul>
-                                <li v-for="withdrawal in auth.user.transactions.withdrawals" :key="withdrawal.id">
-                                    {{ withdrawal.amount }} zł {{ withdrawal.date }}
-                                </li>
-                            </ul>
                         </header>
+                        <ul>
+                            <li v-for="withdrawal in auth.user.transactions.withdrawals" :key="withdrawal.id">
+                                {{ withdrawal.amount }} zł {{ withdrawal.date }}r.
+                            </li>
+                        </ul>
                     </section>
                 </div>
             </div>
