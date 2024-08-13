@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateTransactionRequest;
 use App\Imports\TransactionsImport;
+use App\Models\Transaction;
 use App\Services\TransactionService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -39,5 +40,12 @@ class TransactionController extends Controller
     public function create(): Response
     {
         return Inertia::render('Transaction/Create');
+    }
+
+    public function destroy(Transaction $transaction)
+    {
+        $transaction->delete();
+
+        return redirect()->route('dashboard')->with('success', 'Transaction deleted successfully.');
     }
 }
