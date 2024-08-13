@@ -38,7 +38,7 @@ class User extends Authenticatable
 
     public function deposits(): HasMany
     {
-        return $this->transactions()->where('type', 'deposit');
+        return $this->transactions()->where('type', 'deposit')->orderByDesc('date');
     }
 
     public function transactions(): HasMany
@@ -48,7 +48,7 @@ class User extends Authenticatable
 
     public function withdrawals(): HasMany
     {
-        return $this->transactions()->where('type', 'withdrawal');
+        return $this->transactions()->where('type', 'withdrawal')->orderByDesc('date');
     }
 
     /**
