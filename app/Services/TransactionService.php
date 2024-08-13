@@ -16,17 +16,21 @@ class TransactionService
         //
     }
 
-    public function create(CreateNewTransaction $transaction)
+    public function create(CreateNewTransaction $transaction): void
     {
-        //utworzyć nową tranzakcje
         $this->transactionRepository->create($transaction);
-        //zaktualizować dane użytkownika
         $user = User::find($transaction->getUserId());
 
-//
-//        switch ($transaction->getType()) {
-//            case 'deposit':
-//
-//        }
+        switch ($transaction->getType()) {
+            case 'withdrawal':
+                $user->withdraw += $transaction->getAmount();
+                $user->balance -= $transaction->getAmount();
+                break;
+            case 'deposit':
+                $user->deposit += $transaction->getAmount();
+                $user->balance += $transaction->getAmount();
+                break;
+        }
+        $user->save();
     }
 }
