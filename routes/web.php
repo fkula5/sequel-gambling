@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 //    ]);
 //});
 
-Route::get('/', fn() => redirect("/dashboard"));
+Route::get('/', [UserController::class, 'index'])->name('home');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
 
@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('users', [UserController::class, 'index']);
+    Route::get('users', [UserController::class, 'importView'])->name('import-view');
     Route::post('users-import', [UserController::class, 'import'])->name('users.import');
     Route::post('transactions-import', [TransactionController::class, 'import'])->name('transactions.import');
 });

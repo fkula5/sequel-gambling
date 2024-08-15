@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Imports\UsersImport;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -14,12 +16,17 @@ class UserController extends Controller
     {
         $users = User::all();
 
-//        return Inertia::render('Home', [
-//            'users' => $users,
-//            'canLogin' => Route::has('login'),
-//            'canRegister' => Route::has('register'),
-//        ]);
-        return view('users', compact('users'));
+        return Inertia::render('Home', [
+            'users' => $users,
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+        ]);
+    }
+
+    public function importView()
+    {
+        $users = User::all();
+        return view('users', ['users' => $users]);
     }
 
     public function import(Request $request)
