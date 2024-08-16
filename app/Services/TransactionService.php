@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Transaction;
 use App\Models\User;
 use App\Repositories\TransactionRepository;
 use App\ValueObjects\CreateNewTransaction;
@@ -33,4 +34,25 @@ class TransactionService
         }
         $user->save();
     }
+
+    public function delete(Transaction $transaction): void
+    {
+        $user = User::find($transaction->user_id);
+
+        switch ($transaction->type->value) {
+            case 'withdrawal':
+                $user->withdraw -= $transaction->amount;
+                $user->balance += $transaction->amount;
+                break;
+            case 'deposit':
+                $user->deposit -= $transaction->amount;
+                $user->balance -= $transaction->amount;
+                break;
+        }
+
+        $user->save();
+
+        $transaction->delete();
+    }
+
 }
