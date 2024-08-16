@@ -67,7 +67,7 @@ defineProps({
                                 <p class="mt-1 truncate text-xs leading-5 text-gray-500">{{ user.email }}</p>
                             </div>
                         </div>
-                        <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+                        <div class="shrink-0 sm:flex sm:flex-col sm:items-end">
                             <p class="text-sm leading-6 text-gray-900">Bilans: {{ user.balance }} zł</p>
                             <div class="mt-1 flex items-center gap-x-1.5">
                                 <p class="text-xs leading-5 text-gray-500">Wpłacone: {{ user.deposit }} zł</p>
