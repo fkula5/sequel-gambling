@@ -44,7 +44,7 @@ class TransactionController extends Controller
 
     public function destroy(Transaction $transaction)
     {
-        $transaction->delete();
+        $this->transactionService->delete($transaction);
 
         return redirect()->route('dashboard')->with('success', 'Transaction deleted successfully.');
     }
