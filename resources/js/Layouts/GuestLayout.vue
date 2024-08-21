@@ -1,20 +1,18 @@
-<script setup>
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
-import { Link } from '@inertiajs/vue3';
-</script>
+<script setup></script>
 
 <template>
-    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-        <div>
-            <Link href="/">
-                <ApplicationLogo class="w-20 h-20 fill-current text-gray-500" />
-            </Link>
-        </div>
-
+    <div class="min-h-screen flex flex-col sm:justify-center bg-[#1e1e1e] items-center pt-6 sm:pt-0 ">
         <div
-            class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg"
+            class="w-full sm:max-w-md mt-6 px-6 py-4 overflow-hidden sm:rounded-lg"
         >
-            <slot />
+            <div class="gap-[5px] text-center">
+                <h1 class="text-white text-[34px] font-semibold  leading-[50px]">Witaj ponownie
+                </h1>
+                <p class="text-white text-base font-normal leading-7">Mam nadzieję, że stracisz jak
+                    najwięcej pieniędzy
+                </p>
+            </div>
+            <slot/>
         </div>
     </div>
 </template>
