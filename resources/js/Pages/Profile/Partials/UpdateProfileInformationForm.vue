@@ -3,7 +3,7 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { Link, useForm, usePage } from '@inertiajs/vue3';
+import {Link, useForm, usePage} from '@inertiajs/vue3';
 
 defineProps({
     mustVerifyEmail: {
@@ -19,49 +19,81 @@ const user = usePage().props.auth.user;
 const form = useForm({
     name: user.name,
     email: user.email,
+    nick: user.nick,
+    description: user.description
 });
 </script>
 
 <template>
     <section>
         <header>
-            <h2 class="text-lg font-medium text-gray-900">Profile Information</h2>
+            <h2 class="text-lg font-medium text-gray-900">Dane profilu</h2>
 
             <p class="mt-1 text-sm text-gray-600">
-                Update your account's profile information and email address.
+                Uaktualnij dane swojego profilu.
             </p>
         </header>
 
-        <form @submit.prevent="form.patch(route('profile.update'))" class="mt-6 space-y-6">
+        <form class="mt-6 space-y-6" @submit.prevent="form.patch(route('profile.update'))">
             <div>
-                <InputLabel for="name" value="Name" />
+                <InputLabel for="name" value="Imię"/>
 
                 <TextInput
                     id="name"
-                    type="text"
-                    class="mt-1 block w-full"
                     v-model="form.name"
-                    required
-                    autofocus
                     autocomplete="name"
+                    autofocus
+                    class="mt-1 block w-full"
+                    required
+                    type="text"
                 />
 
-                <InputError class="mt-2" :message="form.errors.name" />
+                <InputError :message="form.errors.name" class="mt-2"/>
             </div>
 
             <div>
-                <InputLabel for="email" value="Email" />
+                <InputLabel for="nick" value="Nick"/>
+
+                <TextInput
+                    id="nick"
+                    v-model="form.nick"
+                    autocomplete="nick"
+                    autofocus
+                    class="mt-1 block w-full"
+                    type="text"
+                />
+
+                <InputError :message="form.errors.nick" class="mt-2"/>
+            </div>
+
+            <div>
+                <InputLabel for="description" value="Opis"/>
+
+                <TextInput
+                    id="description"
+                    v-model="form.description"
+                    autocomplete="desciption"
+                    autofocus
+                    class="mt-1 block w-full"
+                    type="text"
+                />
+
+                <InputError :message="form.errors.description" class="mt-2"/>
+            </div>
+
+            <div>
+                <InputLabel for="email" value="Email"/>
 
                 <TextInput
                     id="email"
-                    type="email"
-                    class="mt-1 block w-full"
                     v-model="form.email"
-                    required
                     autocomplete="username"
+                    class="mt-1 block w-full"
+                    required
+                    type="email"
                 />
 
-                <InputError class="mt-2" :message="form.errors.email" />
+                <InputError :message="form.errors.email" class="mt-2"/>
             </div>
 
             <div v-if="mustVerifyEmail && user.email_verified_at === null">
@@ -69,9 +101,9 @@ const form = useForm({
                     Your email address is unverified.
                     <Link
                         :href="route('verification.send')"
-                        method="post"
                         as="button"
                         class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        method="post"
                     >
                         Click here to re-send the verification email.
                     </Link>
