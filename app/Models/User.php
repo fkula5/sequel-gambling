@@ -24,6 +24,8 @@ class User extends Authenticatable
         'balance',
         'deposit',
         'withdraw',
+        'nick',
+        'description'
     ];
 
     /**
